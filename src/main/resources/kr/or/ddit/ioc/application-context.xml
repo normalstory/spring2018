@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- DI = boardService객체에 대해 속성으로 선언한 boardDao에 대한 spring bean을 주입하는 것  -->
+	<bean id="boardService" class="kr.or.ddit.board.service.BoardService">
+		<property name="boardDao" ref="boardDao" />
+	</bean>
+	
+	<!-- 생성자를 통한 주입 <- 서비스에 boardDao를 받는 생성자, 기본생성자 추가 필요 -->
+	<bean id="boardServiceConst" class="kr.or.ddit.board.service.BoardService">
+		<constructor-arg ref="boardDao"/>
+	</bean>
+
+	<!-- spring scope singleton : singleton(default) -->
+	<!-- 싱글톤 :(외부 접근을 막아) 해당 VM에 특정 클래스 객체가 하나만 있도록 하는 디자인패턴 & 클래스기준 / 아래 두갠 다르다 -->
+	<!-- bean id 당 하나의 객체만 생성 -->
+	<bean id="boardDao"			 class="kr.or.ddit.board.dao.BoardDao" scope="singleton" />
+	<bean id="boardDaoSingleton" class="kr.or.ddit.board.dao.BoardDao" scope="singleton" />
+	
+	<!-- spring scope prototype : DL시 마다 매번 새로운 객체 생성 -->
+	<bean id="boardDaoProtoType" class="kr.or.ddit.board.dao.BoardDao" scope="prototype" />
+	
+	
+</beans>
