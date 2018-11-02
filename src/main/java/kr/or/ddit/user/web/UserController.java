@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/user")	//큰 모듈
 @Controller
@@ -20,11 +21,12 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/loginProcess")	//작은 모듈
+	@RequestMapping(value="/loginProcess",method= {RequestMethod.POST, RequestMethod.GET})	//작은 모듈
 	public String loginProcess(HttpServletRequest request, Model model) {
 		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
+		//String aaa;
 		String sendUri;
 		
 		if(userId.equals(ID) && password.equals(PASS)) {
