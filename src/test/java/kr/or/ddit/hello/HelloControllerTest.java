@@ -26,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.or.ddit.user.model.UserVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/servletContext.xml"})
+//@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/servletContext.xml"}) // <-- 모든 컨트롤러를 다 만든다 
+@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/root-context.xml", 
+											 "classpath:kr/or/ddit/config/spring/servletContext.xml"})
 @WebAppConfiguration	//spring ioc 컨테이너 구성을 web환경에 맞게 구성 
 public class HelloControllerTest {
 	private Logger logger = LoggerFactory.getLogger(HelloControllerTest.class);

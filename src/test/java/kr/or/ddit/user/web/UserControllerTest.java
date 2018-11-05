@@ -21,8 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.hello.HelloControllerTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/servletContext.xml"})
+@RunWith(SpringJUnit4ClassRunner.class) 
+@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/root-context.xml", 
+"classpath:kr/or/ddit/config/spring/servletContext.xml"})
 @WebAppConfiguration
 public class UserControllerTest {
 	private Logger logger = LoggerFactory.getLogger(HelloControllerTest.class);

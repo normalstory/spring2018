@@ -19,7 +19,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/servletContext.xml"})
+@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/root-context.xml", 
+											 "classpath:kr/or/ddit/config/spring/servletContext.xml"})
 @WebAppConfiguration	//spring ioc 컨테이너 구성을 web환경에 맞게 구성 
 public class MvcControllerTest {
 
@@ -63,5 +64,19 @@ public class MvcControllerTest {
 		//model 객체에 rangers리스트 속성을 받아 사이즈가 2인지 체크
 		assertEquals(3, rangers.size());
 	}
+	
+	@Test
+	public void fileUploadTest() throws Exception {
+		/***Given***/
+		MvcResult mvcResult = mockMvc.perform(get("/mvc/fileupload")).andReturn();
+		
+		/***When***/
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+		
+		/***Then***/
+		assertEquals("mvc/fileuploadView", viewName);
+	}
+	
 }
 
