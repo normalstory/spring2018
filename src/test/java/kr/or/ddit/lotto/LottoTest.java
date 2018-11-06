@@ -1,8 +1,6 @@
 package kr.or.ddit.lotto;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -12,10 +10,15 @@ public class LottoTest {
 
 	@Test
 	public void lottoTest() {
+		/***Given***/
 		Lotto lotto = new Lotto();
-		lotto.setMaxNum(55);
-		lotto.setBallSelectNum(6);
-		//lotto.excute();
+		
+		/***When***/
+		lotto.setMax(55);
+		lotto.setNum(6);
+		
+		/***Then***/
+		assertEquals(6, lotto.excute());
+		
 	}
-	
 }

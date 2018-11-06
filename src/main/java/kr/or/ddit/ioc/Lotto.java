@@ -4,50 +4,51 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Lotto {
-	int maxNum;
-	int ballSelectNum;
-//	Set<Integer> selectNums = new HashSet<Integer>();
+	int max;
+	int num;
+	Set<Integer> oh = new HashSet<Integer>();
 	
-//	public Set<Integer>[] excute() {
-//		do{
-//			for(int i =0 ; i<ballSelectNum; i++) {
-//				ballSelectNum = (int)(Math.random()*maxNum)+1;
-//				selectNums[i].add(ballSelectNum);
-//			}
-//		}while(selectNums.length>ballSelectNum);
-//		return selectNums;
-//	}
+	public Lotto() {}
 	
-//	public Set<Integer>[] excute() {
-//		Set<Integer> set = new HashSet<Integer>();
-//		while(selectNums.length>ballSelectNum){
-//				ballSelectNum = (int)(Math.random()*maxNum)+1;
-//				set.add(ballSelectNum);
-//			}
-//		};
-//		return selectNums;
-//	}
-	
-	public int getMaxNum() {
-		return maxNum;
+	public int excute(){
+		for (int i = 1; i <= num; i++) {
+			int w = (int)(Math.random()*max+1);
+			oh.add(w);
+			if(oh.size()!=i)
+				i--;
+		}
+		System.out.println(oh.toString());
+		return oh.size();
 	}
-	public void setMaxNum(int maxNum) {
-		this.maxNum = maxNum;
-	}
-	public int getBallSelectNum() {
-		return ballSelectNum;
-	}
-	public void setBallSelectNum(int ballSelectNum) {
-		this.ballSelectNum = ballSelectNum;
-	}
-//
-//	public Set<Integer>[] getSelectNums() {
-//		return selectNums;
-//	}
-//
-//	public void setSelectNums(Set<Integer>[] selectNums) {
-//		this.selectNums = selectNums;
-//	}
 
+	public int getMax() {
+		return max;
+	}
+
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public Set<Integer> getOh() {
+		return oh;
+	}
+
+	public void setOh(Set<Integer> oh) {
+		this.oh = oh;
+	}
+
+	@Override
+	public String toString() {
+		return "Lotto [max=" + max + ", num=" + num + ", oh=" + oh + "]";
+	}
+	
 	
 }
