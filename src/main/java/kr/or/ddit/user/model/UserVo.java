@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class UserVo implements HttpSessionBindingListener{
 	private String userId;
 	private String name;
@@ -13,10 +15,13 @@ public class UserVo implements HttpSessionBindingListener{
 	private String addr1;
 	private String addr2;
 	private String zipcd;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date   birth;
 	private String email;
 	private String tel;
 	private String profile;
+	//private MultipartFile profile;
 	private String alias;
 	int rnum;
 	
