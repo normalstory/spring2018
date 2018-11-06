@@ -20,23 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.hello.HelloControllerTest;
+import kr.or.ddit.test.ControllerTestConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class) 
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/root-context.xml", 
-"classpath:kr/or/ddit/config/spring/servletContext.xml"})
-@WebAppConfiguration
-public class UserControllerTest {
+public class UserControllerTest extends ControllerTestConfig {
 	private Logger logger = LoggerFactory.getLogger(HelloControllerTest.class);
-	
-	@Autowired
-	private WebApplicationContext ctx;
-	private MockMvc mockMvc;
-	
-	//테스트 시작전 준비해야하는 일들을 미리 실행
-	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-	}
 	
 	@Test
 	public void loginViewTest() throws Exception {

@@ -10,10 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.file.model.FileVo;
+import kr.or.ddit.test.ServiceDaoTestConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:kr/or/ddit/config/spring/root-context.xml")
-public class FileDaoTest {
+public class FileDaoTest extends ServiceDaoTestConfig{
 
 	//이번 class의 핵심
 	@Resource(name="fileDao")
@@ -25,7 +24,7 @@ public class FileDaoTest {
 	* 변경이력 :
 	* Method 설명 : 파일정보 입력 테스트
 	*/
-	@Test
+	@Test(timeout=5000)
 	public void insertFileTest() {
 		/***Given***/
 		FileVo fileVo = new FileVo();
