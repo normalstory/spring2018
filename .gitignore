@@ -2,6 +2,10 @@
 # Created by https://www.gitignore.io/api/maven,eclipse
 
 
+### Database 분리(Home mac) ###
+src/main/resources/kr/or/ddit/config/db/db.properties
+
+
 ### Eclipse ###
 
 .metadata
