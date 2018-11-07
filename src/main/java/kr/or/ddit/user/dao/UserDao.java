@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 public class UserDao implements UserDaoInf{
 //select query id : selectUserAll  -> method : selectUserAll
 	
-	
 	public List<UserVo> selectUserAll(){
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session= factory.openSession();

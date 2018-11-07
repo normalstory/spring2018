@@ -8,6 +8,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.naming.factory.LookupFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.spi.LoggerFactoryBinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +28,10 @@ import kr.or.ddit.util.model.PageVo;
 @Controller
 public class UserController {
 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Resource(name="userService")
 	private UserServiceInf userService;
-	
-	public static final String ID = "brown";
-	public static final String PASS = "brownPass";
 	
 	@RequestMapping("/loginView")	//작은 모듈
 	public String loginView() {
@@ -36,16 +39,15 @@ public class UserController {
 		return "login/login";
 	}
 	
-	
 	@RequestMapping(value="/loginProcess",method= {RequestMethod.POST, RequestMethod.GET})	//작은 모듈
 	public String loginProcess(HttpServletRequest request, Model model) {
 		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		//String aaa;
+	
 		String sendUri;
 		
-		if(userId.equals(ID) && password.equals(PASS)) {
+		if(userId.equals("brown") && password.equals( "brownPass")) {
 			model.addAttribute("userId", userId);
 			sendUri = "main";
 		}else {
@@ -135,6 +137,7 @@ public class UserController {
 	public String userFormUpdateView(@RequestParam("userId") String userId, Model model) {
 		UserVo userVo = userService.selectUser(userId);
 		model.addAttribute("userVo", userVo);
+		logger.debug("**** fileName : {}", userVo.getProfile());
 		
 		return "user/userFormUpdate";
 	}
@@ -143,22 +146,37 @@ public class UserController {
 	public String userFormUpdate(@RequestPart("profilePic") MultipartFile part,
 			 HttpServletRequest request, UserVo userVo) {	
 
-		String fileName = part.getOriginalFilename();
-	
+//		String fileName = part.getOriginalFilename();
+//		logger.debug("**** fileName : {}", fileName);
+//		
+//		try {
+//			if(fileName.equals("")) {
+//				UserVo userVoOnDetail = userService.selectUser(userVo.getUserId());
+//				String path = userVoOnDetail.getProfile();
+//			}else {
+//				String path = request.getServletContext().getRealPath("/profile");
+//				part.transferTo(new File(path + File.separator+fileName));		//파일작성 
+//				userVo.setProfile("/profile/"+fileName);
+//			}
+//			
+//		} catch (IllegalStateException | IOException e) {
+//			e.printStackTrace();
+//		}
 		try {
-			if(fileName.equals("")) {
-				UserVo userVoOnDetail = userService.selectUser(userVo.getUserId());
-				String path = userVoOnDetail.getProfile();
-			}else {
+			if(part.getSize()>0) {
+				
 				String path = request.getServletContext().getRealPath("/profile");
+				String fileName = part.getOriginalFilename();
 				part.transferTo(new File(path + File.separator+fileName));		//파일작성 
+				 
 				userVo.setProfile("/profile/"+fileName);
+			}else {
+				userVo.setProfile("");
 			}
 			
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-
 		int updateUser = userService.updateUser(userVo);
 
 		return "redirect:/user/userPageList?page=1&pageSize=10";
