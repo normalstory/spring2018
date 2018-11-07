@@ -16,19 +16,40 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
-	
+
+	<!-- view resolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"></property>
+	</bean>	
 
 	<!-- hello ==> /WEB-INF/view/hello.jsp -->
+	<!-- InternalResourceViewResolver는 무조건 통과시키므로 order 순위가 가장 마지막이어야한다  -->
+	<!-- 안적으면 integer의 가장 후순위 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <property name="order" value="1"></property> -->
 		<property name="prefix" value="/WEB-INF/view/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
+	<!-- json처리용 뷰 -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	<!-- 커스텀 뷰 : 타임테이블 처리용 뷰 -->
+	<bean id="timesTablesView" class="kr.or.ddit.mvc.view.TimesTablesView"/>
+	
 	<!-- multipart Resolver 설정 < 파일업로드를 위해  + pom 에 디펜던시 추가 ! &   bean ID는 정해져있다-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="25000000" />
 	</bean>
 	
-
+	<!-- 메시지 소스(에러 등) -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:kr/or/ddit/config/msg/error</value>
+			</list>
+		</property>
+	</bean>
+	
 </beans>

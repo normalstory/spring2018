@@ -174,6 +174,20 @@ public class HelloController {
 		writer.write("</html>");
 	}
 	
+	
+	
+	
+	/**
+	* Method : view
+	* 작성자 : pc03
+	* 변경이력 :18/11/07
+	* @return
+	* Method 설명 : 예외를 강제로 발생시키는 url 
+	*/
+	@RequestMapping("/exception")
+	public String view() {
+		throw new ArithmeticException();
+	}
 }
 
 
