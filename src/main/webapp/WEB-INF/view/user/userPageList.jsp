@@ -60,8 +60,6 @@
 		});
 	}
 	
-	
-	
 	//page 인자를 받아서 해당 페이지에 속하는 사용자 리스트정보를 가져온다
 	function getUserList(page) {
 		var pageSize = 10;
@@ -102,7 +100,6 @@
 					$("#userId").val(userId);
 					$("#frm").submit();
 				}); */
-				
 				
 	   <%-- <c:forEach begin="1" end="${pageCnt}" var="p">
 				<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
@@ -148,13 +145,14 @@
 				</thead>
 				<tbody id="userList"><!-- userList loop 출력 **이 부분 <-- aja를 위해 삭제하고 다시 넣는 부분-->
 					<%-- <c:forEach items="${userList}" var="user">
-						<tr class="userClick">
-							<td>${user.rnum }</td>
-							<td>${user.userId }</td>
-							<td>${user.name }</td>
-							<td><fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd" /></td>
-						</tr>
-					</c:forEach> --%>
+							<tr class="userClick">
+								<td>${user.rnum }</td>
+								<td>${user.userId }</td>
+								<td>${user.name }</td>
+								<td><fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd" /></td>
+							</tr>
+						</c:forEach> 
+					--%>
 				</tbody>
 			</table>
 
@@ -164,21 +162,25 @@
 
 		<div class="text-center">
 			<ul class="pagination">
-			<%-- 	<!-- <li><a href="/user/userPageList?page=1&pageSize=10" -->
+			<%-- 	
+				<!-- <li><a href="/user/userPageList?page=1&pageSize=10" -->
 				<!-- javascript:getUserList(1,10) -->
-				<li><a href="javascript:getUserList(1);" aria-label="Previous"> 
-					<span aria-hidden="true">&laquo;</span></a></li>
-
-				<c:forEach begin="1" end="${pageCnt}" var="p">
-						<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
-						<li><a href="javascript:getUserList(${p});">${p}</a></li>
-					</c:forEach>
-				<li id="cnt"></li>
 				<li>
-					<a href="/user/userPageList?page=${pageCnt }&pageSize=10" aria-label="Next">
-					
-					<a href="javascript:getUserList(${pageCnt});" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span> </a></li> --%>
+					<a href="javascript:getUserList(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a> 
+				</li>
+				
+				<c:forEach begin="1" end="${pageCnt}" var="p">
+					<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
+					<li><a href="javascript:getUserList(${p});">${p}</a></li>
+				</c:forEach>
+				
+				<li id="cnt"></li>
+				
+				<li>
+					<!-- <a href="/user/userPageList?page=${pageCnt }&pageSize=10" aria-label="Next">-->
+					<a href="javascript:getUserList(${pageCnt});" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
+				</li> 
+			--%>
 			</ul>
 		</div>
 	</div>

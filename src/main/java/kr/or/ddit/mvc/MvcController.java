@@ -87,7 +87,7 @@ public class MvcController {
 	//fileupload 처리를 위한 controller method(post)
 	@RequestMapping(value="/mvc/fileupload", method= {RequestMethod.POST})
 	public String fileupload(@RequestPart("uploadFile") MultipartFile part, 
-								  @RequestParam("userId") String userId) {	//벨류 객체가 없을때 임시로 파라미터 생성해서 수렴도 가능
+						    @RequestParam("userId") String userId) {	//벨류 객체가 없을때 임시로 파라미터 생성해서 수렴도 가능
 
 		logger.debug("@RequestParam --- userId : {}", userId);
 		
