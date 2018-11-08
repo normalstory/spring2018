@@ -2,31 +2,18 @@
 <%@page import="kr.or.ddit.user.model.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
-
-<title>userAllList</title>
 
 <!-- basicLib -->
 <%@ include file="../common/basicLib.jsp"%>
 
 <!-- 사용자 클릭해서 상세화면으로 이동 -->
 <style type="text/css">
-	.userClick{
-		cursor:pointer;
-	}
+.userClick {
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 	function userName(a){
@@ -35,98 +22,164 @@
 
 	$(document).ready(function(){
 		console.log("document.ready");
-		
-		//tr에 select (class="userClick")
-		//$(".userClick").click(function(){
-		//	console.log("userClick");
-		//});
-		
-		var ec="click"
-		$(".userClick").on(ec,function(){
+		var ec="click";
+		$("tbody").on(ec,".userClick",function(){
 			console.log("userClick");
-			
 			var userId = $(this).children()[1].innerHTML;
-		
 			$("#userId").val(userId);
-			//폼태그 지정.submit();
 			$("#frm").submit();
-		
 		});
-		
-	});	
-</script>
 
-</head>
+		//getUserList(1);
+		getUserListHtml(1);
+		getUserPagenationHtml(1);
+	});
+	
+	
+	function getUserListHtml(page){
+		var pageSize=10;
+		$.ajax({
+			type:"GET",
+			url:"/user/userPageListAjaxHtml",
+			data:"page="+page+"&pageSize="+pageSize, 
+			success:function(dt){
+				$("#userList").html(dt);
+			}
+		});
+	}
+	
+	function getUserPagenationHtml(page){
+		var pageSize=10;
+		$.ajax({
+			type:"GET",
+			url:"/user/userPageListAjaxPageHtml",
+			data:"page="+page+"&pageSize="+pageSize, 
+			success:function(dt){
+				$(".pagination").html(dt);
+			}
+		});
+	}
+	
+	
+	
+	//page 인자를 받아서 해당 페이지에 속하는 사용자 리스트정보를 가져온다
+	function getUserList(page) {
+		var pageSize = 10;
+		console.log("page : " + page);
+		
+		//ajax call 사용자 리스트 데이터만 가져온다
+		//html(기존방식)이 아닌 json(to-be) data를 받는 형태로 변경
+		$.ajax({
+			type:"GET",
+			url :"/user/userPageListAjax",
+			data:"page="+page+"&pageSize="+pageSize,  //ex page=1&pageSize=10
+			success:function(dt){//url 응답
+				//data(사용자 json데이터)를 바탕으로 사용자 리스트를 갱신
+				//1. 기존 리스트 삭제
+				//2. data를 이용하여 테이블 tr를 작성
+				//3. 기존 리스트 위치에 붙여넣기
+				
+				console.log(dt);
+				var html="";
+				//배열-향상된 for문 
+				//<--배열 : userService에서 Map<String,Object>의 변수값
+				$.each(dt.userList, function(idx, user){	 
+					console.log(user);
+					html += "<tr class='userClick'>";
+					html += "<td>"+idx+" | "+user.rnum+"</td>";
+					html += "<td>"+idx+" | "+user.userId+"</td>";
+					html += "<td>"+idx+" | "+user.name+"</td>";
+					html += "<td>"+idx+" | "+user.birthFomat+"</td>";
+				});
+				
+				$("#userList").html("");
+				$("#userList").html(html);
+				
+				/* var ec="click";
+				$(".userClick").on(ec,function(){
+					console.log("userClick");
+					var userId = $(this).children()[1].innerHTML;
+					$("#userId").val(userId);
+					$("#frm").submit();
+				}); */
+				
+				
+	   <%-- <c:forEach begin="1" end="${pageCnt}" var="p">
+				<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
+				<li><a href="javascript:getUserList(${p});">${p}</a></li>
+			</c:forEach> --%>
+			
+				/* var cntHtml="";
+				$.each(dt.pageCnt, function(idx, pageCnt){
+					cntHtml += "<a href='javascript:getUserList("+pageSize+");'>"+pageSize+"</a>";
+				});*/
+				
+				var cntHtml="";
+				cntHtml += "<li><a href='javascript:getUserList(1);' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a></li>";
+				for(var i =1; i<=dt.pageCnt; i++){
+					cntHtml += "<li><a href='javascript:getUserList("+i+");'>"+i+"</a></li>";
+				}
+				cntHtml += "<li><a href='javascript:getUserList("+dt.pageCnt+");' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+				$(".pagination").html(cntHtml); 
+				
+			}
+		});
+	}
+</script>
 
 <form id="frm" action="/user/userDetail" method="get">
 	<input type="hidden" id="userId" name="userId">
 </form>
 
-<body>
+<div class="row">
+	<div class="col-sm-8 blog-main">
+		<h2 class="sub-header">사용자</h2>
 
-	<!-- header -->
-	<%@ include file="../common/header.jsp"%>
+		<div class="table-responsive">
 
-	<div class="container-fluid">
-		<div class="row">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>사용자 아이디</th>
+						<th>사용자 이름</th>
+						<th>생일</th>
+					</tr>
+				</thead>
+				<tbody id="userList"><!-- userList loop 출력 **이 부분 <-- aja를 위해 삭제하고 다시 넣는 부분-->
+					<%-- <c:forEach items="${userList}" var="user">
+						<tr class="userClick">
+							<td>${user.rnum }</td>
+							<td>${user.userId }</td>
+							<td>${user.name }</td>
+							<td><fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd" /></td>
+						</tr>
+					</c:forEach> --%>
+				</tbody>
+			</table>
 
-			<!-- left -->
-			<%@ include file="../common/left.jsp"%>
+		</div>
 
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<div class="row">
-					<div class="col-sm-8 blog-main">
-						<h2 class="sub-header">사용자</h2>
+		<a class="btn btn-default pull-right" href="/user/userForm">사용자 등록</a>
 
-						<div class="table-responsive">
+		<div class="text-center">
+			<ul class="pagination">
+			<%-- 	<!-- <li><a href="/user/userPageList?page=1&pageSize=10" -->
+				<!-- javascript:getUserList(1,10) -->
+				<li><a href="javascript:getUserList(1);" aria-label="Previous"> 
+					<span aria-hidden="true">&laquo;</span></a></li>
 
-							<table class="table table-striped table-hover">
-								<tr>
-									<th>번호</th>
-									<th>사용자 아이디</th>
-									<th>사용자 이름</th>
-									<th>생일</th>
-								</tr>
-
-								<!-- userList loop 출력 -->
-								<c:forEach items="${userList}" var="user" >
-									<tr class="userClick" >
-										<td>${user.rnum }</td>
-										<td>${user.userId }</td>
-										<td>${user.name }</td>
-										<td><fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd"/></td>
-									</tr>
-								</c:forEach>
-							</table>
-							
-						</div>
-
-						<a class="btn btn-default pull-right" href="/user/userForm">사용자 등록</a>
-
-						<div class="text-center">
-							<ul class="pagination">
-								<li>
-									<a href="/user/userPageList?page=1&pageSize=10" aria-label="Previous"> 
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-																
-								<c:forEach begin="1" end="${pageCnt}" var="p">
-								<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
-								</c:forEach>
-							
-								<li>
-									<a href="/user/userPageList?page=${pageCnt }&pageSize=10" aria-label="Next"> 
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			</div>
+				<c:forEach begin="1" end="${pageCnt}" var="p">
+						<li><a href="/user/userPageList?page=${p}&pageSize=10">${p}</a></li>
+						<li><a href="javascript:getUserList(${p});">${p}</a></li>
+					</c:forEach>
+				<li id="cnt"></li>
+				<li>
+					<a href="/user/userPageList?page=${pageCnt }&pageSize=10" aria-label="Next">
+					
+					<a href="javascript:getUserList(${pageCnt});" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span> </a></li> --%>
+			</ul>
 		</div>
 	</div>
-</body>
-</html>
+</div>

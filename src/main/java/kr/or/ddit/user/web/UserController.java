@@ -68,7 +68,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/userPageList")
-	public String userPageList(Model model, PageVo pageVo) {
+	public String userPageList(/*Model model, PageVo pageVo*/) {
 		//스프링컨테이너로부터 빈을 주입받기때문에 new연산자를 통해 별도로 생성할 필요없다
 		
 		//		PageVo pageVo = new PageVo();
@@ -77,18 +77,44 @@ public class UserController {
 				// -> 컨트롤러 메서드 매개변수로 선언
 		
 		
-		Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
-		//		//페이지 리스트
-		//		List<UserVo> userList = (List<UserVo>)resultMap.get("userList");
-		//		//페이지 건 수
-		//		int pageCnt = (int)resultMap.get("pageCnt");
-		//		request.setAttribute("pagelist", userList);
-		//		request.setAttribute("pageCnt", pageCnt);
-		model.addAllAttributes(resultMap);
+		//Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
+				//		//페이지 리스트
+				//		List<UserVo> userList = (List<UserVo>)resultMap.get("userList");
+				//		//페이지 건 수
+				//		int pageCnt = (int)resultMap.get("pageCnt");
+				//		request.setAttribute("pagelist", userList);
+				//		request.setAttribute("pageCnt", pageCnt);
+		//model.addAllAttributes(resultMap);
 		
 		//request.getRequestDispatcher("/user/userPageList.jsp").forward(request, response);
 		return "user/userPageList";
 	}
+	
+	@RequestMapping("/userPageListAjax")
+	public String userPageListAjax(Model model, PageVo pageVo) {
+		Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
+		model.addAllAttributes(resultMap);
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping("/userPageListAjaxHtml")
+	public String userPageListAjaxHtml(Model model, PageVo pageVo) {
+		Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
+		model.addAllAttributes(resultMap);
+		
+		return "user/pageListHtml";
+	}	
+	@RequestMapping("/userPageListAjaxPageHtml")
+	public String userPageListAjaxPageHtml(Model model, PageVo pageVo) {
+		Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
+		model.addAllAttributes(resultMap);
+		
+		return "user/pageListPageHtml";
+	}	
+	
+	
+	
 	
 	@RequestMapping("/userDetail")
 	public String userDetail(@RequestParam("userId") String userId, Model model) {

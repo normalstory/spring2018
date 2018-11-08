@@ -5,20 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
-
-<title>userAllList</title>
-
 <!-- basicLib -->
 <%@ include file="../common/basicLib.jsp"%>
 
@@ -31,8 +17,6 @@
 
 <script>
 $(document).ready(function(){
-	
-	//생일 input datepicker 적용 
 	$("#birth").datepicker(
 		{
 			dateFormat: "yy-mm-dd",
@@ -41,26 +25,11 @@ $(document).ready(function(){
 		 	changeYear: true
 		}
 	);
-	
-	//클릭 이벤트 조건 추가 
 	$("#addrSearchBtn").click(function(){
-		
-		//다음 api
 		new daum.Postcode({
 	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-	            //주소 : roadAddress
-	            //상세 : ""
-	            //우편번호 : zonecode
-
-	            //test
 	            console.log(data);
-	            
-	            //주소 input에 value 설정 
-            	//-> 주소 : data.roadAddress
 	            $("#addr1").val(data.roadAddress);
-            	//-> 우편번호 : data.zonecode
 	            $("#zipcd").val(data.zonecode);
 	        }
 	    }).open();
@@ -71,17 +40,9 @@ $(document).ready(function(){
 		$("#profile").css('display','block');
 		$("#del_PicBtn").css('display','none');
 		$("#pP").css('display','none');
-		
-		//여기까지 (안나옮)
-		//$("img").attr('src','/Users/bhuanchanwoo/git/201805jsp/src/main/webapp/profile/noimage.png');
 		$("img").attr('src','D:\A_TeachingMaterial\6.JspSrpgin\workspace\jsp\src\main\webapp\profile\noimage.png');
-		
-		//-> 디데일.jsp ->(버튼)파라미터 보내기 -> form 다시 입력한 후 저장(업데이트)하기 -> 리스트 페이지로 
-		
-		
 	});
 });
-    
 </script>
 
 <style type="text/css">
@@ -90,22 +51,8 @@ $(document).ready(function(){
 }
 </style>
 
-</head>
 
-<body>
-
-	<!-- header -->
-	<%@ include file="../common/header.jsp"%>
-
-	<div class="container-fluid">
-		<div class="row">
-
-			<!-- left -->
-			<%@ include file="../common/left.jsp"%>
-
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-				<form method="post" action="/user/userFormUpdate" class="form-horizontal" role="form" enctype="multipart/form-data">
+<form method="post" action="/user/userFormUpdate" class="form-horizontal" role="form" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label for="userNm" class="col-sm-2 control-label">사용자 사진</label>
@@ -197,8 +144,3 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-</body>
-</html>

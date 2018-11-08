@@ -7,10 +7,24 @@
 
 
 
-<mvc:interceptors>
-	<mvc:interceptor>
-	<mvc:mapping path="/**"/>
-	<bean class="kr.or.ddit.intercepter.PerformanceCheckIntercepter"/>
-	</mvc:interceptor>
-</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="kr.or.ddit.intercepter.PerformanceCheckIntercepter"/>
+		</mvc:interceptor>
+	
+		<!-- locale info : 로케일정보 수정 by 파라미터 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="lang"></property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+		
+	<!-- locale info : 리죨버(저장위치) -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+	
+
+
 </beans>

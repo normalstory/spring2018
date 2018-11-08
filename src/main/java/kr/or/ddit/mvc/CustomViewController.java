@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 
 import com.sun.net.httpserver.HttpsParameters;
@@ -20,7 +21,9 @@ public class CustomViewController {
 	}
 	
 	@RequestMapping("/customViewBeanName")
-	public String customViewBeanName() {
+	public String customViewBeanName(Model model,
+			@RequestParam(value="tables",defaultValue="3") int tables ) {
+		model.addAttribute("tables");
 		return "timesTablesView";				//싱글톤 : 빈 선언시 한번만 생성 
 	}
 	

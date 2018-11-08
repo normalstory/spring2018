@@ -25,9 +25,28 @@ public class TimesTablesView implements View{
 					HttpServletResponse response)  //, @RequestParam("tables") int tables
 			throws Exception {
 		
+	
+		int table = (int) model.get("tables");
 		
-		int tables = (int) request.getAttribute("tables");
-		logger.debug(" $$$$$$$$$$$ tables : ", tables);	
+//		int tables = (int) request.getAttribute("tables");
+//		logger.debug(" $$$$$$$$$$$ tables : ", tables);	
+
+		//if(){
+//		double tablesD;
+//		logger.debug("String param : {}",param);
+//		tablesD = Double.parseDouble(param);
+//		logger.debug("double param : {}",tablesD);
+
+//		int tables;
+//		String param = request.getParameter("tables");
+//
+//		if(param!=null){
+//			tables = Integer.parseInt(param);
+//			logger.debug("Integer param : {}",tables);
+//		}else{
+//			tables = 9;
+//		}
+		
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw  = response.getWriter();
@@ -49,7 +68,7 @@ public class TimesTablesView implements View{
 
 		for(int j=1; j<10; j++){
 			pw.println("	<tr>");
-			for(int i=2; i<tables; i++){
+			for(int i=2; i<table; i++){
 				String times= i+"X"+j+"="+i*j;	
 				pw.println("		<td>"+times+"</td>");
 			}

@@ -24,11 +24,26 @@
 		<property name="order" value="0"></property>
 	</bean>	
 
+	<!-- TilesViewResolver -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1"></property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+	</bean>
+	<!-- TilesConfigurer -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:kr/or/ddit/config/tiles/tiles-config.xml</value>
+			</list>
+		</property>
+	</bean>
+
+
 	<!-- hello ==> /WEB-INF/view/hello.jsp -->
 	<!-- InternalResourceViewResolver는 무조건 통과시키므로 order 순위가 가장 마지막이어야한다  -->
 	<!-- 안적으면 integer의 가장 후순위 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- <property name="order" value="1"></property> -->
+		<!-- <property name="order" value="3"></property> -->
 		<property name="prefix" value="/WEB-INF/view/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
@@ -48,8 +63,10 @@
 		<property name="basenames">
 			<list>
 				<value>classpath:kr/or/ddit/config/msg/error</value>
+				<value>classpath:kr/or/ddit/config/msg/msg</value>
 			</list>
 		</property>
 	</bean>
+	
 	
 </beans>
