@@ -47,6 +47,18 @@ public class TimesTablesView implements View{
 //			tables = 9;
 //		}
 		
+		//int tables = (int) request.getAttribute("tables");
+		//logger.debug(" $$$$$$$$$$$ tables : ", tables);
+		
+		//logger.debug(" $$$$$$$$$$$ tables : ", request.getParameter("tables"));	
+		//int tables = Integer.parseInt(request.getParameter("tables"));
+		
+//		String param = request.getParameter("tables");
+//		if(isStringDouble(param)){
+//			int tables = Integer.parseInt(param);
+//		}else{
+//			int tables = 9;
+//		}
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw  = response.getWriter();
