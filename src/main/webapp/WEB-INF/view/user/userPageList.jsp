@@ -32,7 +32,7 @@
 
 		//getUserList(1);
 		getUserListHtml(1);
-		getUserPagenationHtml(1);
+		//getUserPagenationHtml(1);
 	});
 	
 	
@@ -41,9 +41,11 @@
 		$.ajax({
 			type:"GET",
 			url:"/user/userPageListAjaxHtml",
-			data:"page="+page+"&pageSize="+pageSize, 
+			data:"page="+page+"&pageSize="+pageSize, //보낼때
+	        dataType : "html",			//받을때 
 			success:function(dt){
 				$("#userList").html(dt);
+				getUserPagenationHtml(1);
 			}
 		});
 	}
@@ -52,8 +54,9 @@
 		var pageSize=10;
 		$.ajax({
 			type:"GET",
-			url:"/user/userPageListAjaxPageHtml",
+			url:"/user/userPagenationHtml",
 			data:"page="+page+"&pageSize="+pageSize, 
+	        dataType : "html",
 			success:function(dt){
 				$(".pagination").html(dt);
 			}
@@ -71,6 +74,7 @@
 			type:"GET",
 			url :"/user/userPageListAjax",
 			data:"page="+page+"&pageSize="+pageSize,  //ex page=1&pageSize=10
+	        dataType : "json",
 			success:function(dt){//url 응답
 				//data(사용자 json데이터)를 바탕으로 사용자 리스트를 갱신
 				//1. 기존 리스트 삭제
@@ -81,7 +85,7 @@
 				var html="";
 				//배열-향상된 for문 
 				//<--배열 : userService에서 Map<String,Object>의 변수값
-				$.each(dt.userList, function(idx, user){	 
+				$.each(dt.userList, function(idx, user){	 //java로 부터받은 제이슨객체 userList
 					console.log(user);
 					html += "<tr class='userClick'>";
 					html += "<td>"+idx+" | "+user.rnum+"</td>";

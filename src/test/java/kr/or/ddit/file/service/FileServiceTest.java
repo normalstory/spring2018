@@ -18,7 +18,7 @@ public class FileServiceTest extends ServiceDaoTestConfig{
 
 	//@Service("fileService")  <-- 틀 
 	@Resource(name="fileService")
-	private FileService fileservice;
+	private FileServiceInf fileservice;
 	
 	@Test
 	public void fileInsertTest() {

@@ -5,12 +5,12 @@ package kr.or.ddit.user.dao;
 
 import java.util.List;
 
-import kr.or.ddit.config.db.SqlFactoryBuilder;
+import javax.annotation.Resource;
+
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 //jspuser테이블 전체 조회 쿼리 
@@ -18,54 +18,26 @@ import org.springframework.stereotype.Repository;
 public class UserDao implements UserDaoInf{
 //select query id : selectUserAll  -> method : selectUserAll
 	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	public List<UserVo> selectUserAll(){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		//selectOne : 조회 데이터가 한 건일때 
-		//selectList : 여러건의 데이터 조회 
-		//메소드 인자: 문자열 - 메퍼(xml) 네임스페이스(모듈명).쿼리아이디 
-		
-		List<UserVo> userList = session.selectList("user.selectUserAll");
-	/*	session.rollback();
-		session.commit();*/
-		session.close();
-		
-		return userList;
+		return template.selectList("user.selectUserAll");
 	}
 	
 	//아이디로 사용자 셀렉
 	public UserVo selectUser(String param){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		//파라미터 추가
-		UserVo userVo = session.selectOne("user.selectUser", param);
-		session.close();
-		
-		return userVo;
+		return template.selectOne("user.selectUser", param);
 	}
 	
 	//객체로 사용자 셀렉
 	public UserVo selectUser(UserVo user){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		UserVo userVo = session.selectOne("user.selectUserByVo", user);
-		session.close();
-		
-		return userVo;
+		return template.selectOne("user.selectUserByVo", user);
 	}
 	
 	//페이징 처리 
 	public List<UserVo> selectUserPageList(PageVo pageVo){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		List<UserVo> userList = session.selectList("user.selectUserPageList", pageVo);
-		session.close();
-		
-		return userList;
+		return template.selectList("user.selectUserPageList", pageVo);
 	}
 	
 	/**
@@ -77,13 +49,7 @@ public class UserDao implements UserDaoInf{
 	*/
 	@Override
 	public int getUsetCnt() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		int totaluserCount = session.selectOne("user.getUsetCnt");
-		session.close();
-		
-		return totaluserCount;
+		return template.selectOne("user.getUsetCnt");
 	}
 
 	/**
@@ -96,15 +62,7 @@ public class UserDao implements UserDaoInf{
 	*/
 	@Override
 	public int insertUser(UserVo userVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		int insertCnt = session.insert("user.insertUser",userVo);
-		//커밋
-		session.commit();
-		session.close();
-		
-		return insertCnt;
+		return template.insert("user.insertUser",userVo);
 	}
 
 	/**
@@ -117,15 +75,7 @@ public class UserDao implements UserDaoInf{
 	*/
 	@Override
 	public int deleteUser(String userId) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		int deleteUser = session.delete("user.deleteUser",userId);
-		//커밋
-		session.commit();
-		session.close();
-		
-		return deleteUser;
+		return template.delete("user.deleteUser",userId);
 	}
 
 	/**
@@ -138,14 +88,7 @@ public class UserDao implements UserDaoInf{
 	*/
 	@Override
 	public int updateUser(UserVo userVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		int updateUser = session.update("user.updateUser",userVo);
-		session.commit();
-		session.close();
-		
-		return updateUser;
+		return template.update("user.updateUser",userVo);
 	}
 	
 	

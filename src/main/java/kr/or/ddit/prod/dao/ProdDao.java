@@ -2,8 +2,11 @@ package kr.or.ddit.prod.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.config.db.SqlFactoryBuilder;
@@ -13,49 +16,28 @@ import kr.or.ddit.util.model.PageVo;
 
 @Repository
 public class ProdDao implements ProdDaoInf{
-
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	@Override
 	public List<ProdVo> prodList() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		List<ProdVo> prodList = session.selectList("prod.prodListAll");
-		session.close();
-		
-		return prodList;
+		return template.selectList("prod.prodListAll");
 	}
 
 	@Override
 	public ProdVo prodDetail(String prod_id) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		ProdVo prodDetail = (ProdVo)session.selectOne("prod.prodDetail",prod_id);
-		session.close();
-		
-		return prodDetail;
+		return (ProdVo)template.selectOne("prod.prodDetail",prod_id);
 	}
 
 	@Override
 	public List<ProdVo> prodPageList(PageVo pageVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		List<ProdVo> prodPageList = session.selectList("prod.prodPageList",pageVo);
-		session.close();
-		
-		return prodPageList;
+		return template.selectList("prod.prodPageList",pageVo);
 	}
 
 	@Override
 	public int getProdCnt() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session= factory.openSession();
-		
-		int totalprodCount = session.selectOne("prod.getUsetCnt");
-		session.close();
-		
-		return totalprodCount;
+		return template.selectOne("prod.getUsetCnt");
 	}
 
 }

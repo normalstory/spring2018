@@ -3,9 +3,6 @@ package kr.or.ddit.board.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -31,8 +28,8 @@ import kr.or.ddit.board.model.BoardVo;
 //단 어노테이션 자체가 특별한 의미는 아미. 개발 시 자주 사용되는 모듈을 분리하여 명명한 것에 불과
 */
 
-@Repository("boardDao")	//이름을 생략하면 클래스 첫글자를 소문자로 한 이름이 자동으로 spring bean에 등록됨
-public class BoardDao implements BoardDaoInf{
+//@Repository("boardDao")	//이름을 생략하면 클래스 첫글자를 소문자로 한 이름이 자동으로 spring bean에 등록됨
+public class BoardDao_bak implements BoardDaoInf{
 
 	@Override
 	public List<BoardVo> selectBoardList() {

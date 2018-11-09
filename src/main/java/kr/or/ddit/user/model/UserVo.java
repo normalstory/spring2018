@@ -27,6 +27,11 @@ public class UserVo implements HttpSessionBindingListener{
 	
 	public UserVo(){
 	}
+	
+	public UserVo(String userId, String name){
+		this.userId=userId;
+		this.name=name;
+	}
 
 	public int getRnum() {
 		return rnum;

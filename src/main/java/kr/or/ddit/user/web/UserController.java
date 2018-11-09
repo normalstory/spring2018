@@ -105,12 +105,12 @@ public class UserController {
 		
 		return "user/pageListHtml";
 	}	
-	@RequestMapping("/userPageListAjaxPageHtml")
+	@RequestMapping("/userPagenationHtml")
 	public String userPageListAjaxPageHtml(Model model, PageVo pageVo) {
 		Map<String,Object> resultMap = userService.selectUserPageList(pageVo);
 		model.addAllAttributes(resultMap);
 		
-		return "user/pageListPageHtml";
+		return "user/pagenationHtml";
 	}	
 	
 	
