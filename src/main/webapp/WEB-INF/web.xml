@@ -34,6 +34,7 @@
     		classpath:kr/or/ddit/config/spring/aop-context.xml
 			classpath:kr/or/ddit/config/spring/datasource-context.xml
 			classpath:kr/or/ddit/config/spring/transaction-context.xml
+			classpath:kr/or/ddit/config/spring/batch-context.xml
 	</param-value>
   </context-param>
   <listener>

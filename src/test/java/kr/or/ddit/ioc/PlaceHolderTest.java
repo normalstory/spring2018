@@ -30,7 +30,7 @@ public class PlaceHolderTest {
 		String url = placeholder.getUrl();
 
 		/***Then***/
-		assertEquals("pc03", user);
+		assertEquals("pc03test", user);
 		assertEquals("java", password);
 		assertEquals("oracle.jdbc.driver.OracleDriver", driver);
 		assertEquals("jdbc:oracle:thin:@localhost:1521:xe", url);

@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<context:property-placeholder location="classpath:kr/or/ddit/config/db/db.properties"/>
+	<context:property-placeholder location="classpath:kr/or/ddit/config/db/dbTest.properties"/>
 	<bean id="placeholder" class="kr.or.ddit.ioc.PlaceHolder">
 		<property name="user" value="${jdbc.user}"></property>
 		<property name="password" value="${jdbc.password}"></property>
