@@ -4,17 +4,17 @@ drop table daily;
 drop table cycle;
 drop table product;
 drop table customer;
-/* ê³ ê° */
+/* °í°´ */
 CREATE TABLE CUSTOMER (
-	CID NUMBER NOT NULL, /* ê³ ê°ë²ˆí˜¸ */
-	CNM VARCHAR2(50) NOT NULL /* ê³ ê°ëª… */
+	CID NUMBER NOT NULL, /* °í°´¹øÈ£ */
+	CNM VARCHAR2(50) NOT NULL /* °í°´¸í */
 );
 
-COMMENT ON TABLE CUSTOMER IS 'ê³ ê°';
+COMMENT ON TABLE CUSTOMER IS '°í°´';
 
-COMMENT ON COLUMN CUSTOMER.CID IS 'ê³ ê°ë²ˆí˜¸';
+COMMENT ON COLUMN CUSTOMER.CID IS '°í°´¹øÈ£';
 
-COMMENT ON COLUMN CUSTOMER.CNM IS 'ê³ ê°ëª…';
+COMMENT ON COLUMN CUSTOMER.CNM IS '°í°´¸í';
 
 CREATE UNIQUE INDEX PK_CUSTOMER
 	ON CUSTOMER (
@@ -28,17 +28,17 @@ ALTER TABLE CUSTOMER
 			CID
 		);
 
-/* ì œí’ˆ */
+/* Á¦Ç° */
 CREATE TABLE PRODUCT (
-	PID NUMBER NOT NULL, /* ì œí’ˆë²ˆí˜¸ */
-	PNM VARCHAR2(50) NOT NULL /* ì œí’ˆëª… */
+	PID NUMBER NOT NULL, /* Á¦Ç°¹øÈ£ */
+	PNM VARCHAR2(50) NOT NULL /* Á¦Ç°¸í */
 );
 
-COMMENT ON TABLE PRODUCT IS 'ì œí’ˆ';
+COMMENT ON TABLE PRODUCT IS 'Á¦Ç°';
 
-COMMENT ON COLUMN PRODUCT.PID IS 'ì œí’ˆë²ˆí˜¸';
+COMMENT ON COLUMN PRODUCT.PID IS 'Á¦Ç°¹øÈ£';
 
-COMMENT ON COLUMN PRODUCT.PNM IS 'ì œí’ˆëª…';
+COMMENT ON COLUMN PRODUCT.PNM IS 'Á¦Ç°¸í';
 
 CREATE UNIQUE INDEX PK_PRODUCT
 	ON PRODUCT (
@@ -52,23 +52,23 @@ ALTER TABLE PRODUCT
 			PID
 		);
 
-/* ê³ ê°ì• ìŒì£¼ê¸° */
+/* °í°´¾ÖÀ½ÁÖ±â */
 CREATE TABLE CYCLE (
-	CID NUMBER NOT NULL, /* ê³ ê°ë²ˆí˜¸ */
-	PID NUMBER NOT NULL, /* ì œí’ˆë²ˆí˜¸ */
-	DAY NUMBER NOT NULL, /* ìš”ì¼ */
-	CNT NUMBER NOT NULL /* ìˆ˜ëŸ‰ */
+	CID NUMBER NOT NULL, /* °í°´¹øÈ£ */
+	PID NUMBER NOT NULL, /* Á¦Ç°¹øÈ£ */
+	DAY NUMBER NOT NULL, /* ¿äÀÏ */
+	CNT NUMBER NOT NULL /* ¼ö·® */
 );
 
-COMMENT ON TABLE CYCLE IS 'ê³ ê°ì• ìŒì£¼ê¸°';
+COMMENT ON TABLE CYCLE IS '°í°´¾ÖÀ½ÁÖ±â';
 
-COMMENT ON COLUMN CYCLE.CID IS 'ê³ ê°ë²ˆí˜¸';
+COMMENT ON COLUMN CYCLE.CID IS '°í°´¹øÈ£';
 
-COMMENT ON COLUMN CYCLE.PID IS 'ì œí’ˆë²ˆí˜¸';
+COMMENT ON COLUMN CYCLE.PID IS 'Á¦Ç°¹øÈ£';
 
-COMMENT ON COLUMN CYCLE.DAY IS 'ìš”ì¼';
+COMMENT ON COLUMN CYCLE.DAY IS '¿äÀÏ';
 
-COMMENT ON COLUMN CYCLE.CNT IS 'ìˆ˜ëŸ‰';
+COMMENT ON COLUMN CYCLE.CNT IS '¼ö·®';
 
 CREATE UNIQUE INDEX PK_CYCLE
 	ON CYCLE (
@@ -86,23 +86,23 @@ ALTER TABLE CYCLE
 			DAY
 		);
 
-/* ì¼ì‹¤ì  */
+/* ÀÏ½ÇÀû */
 CREATE TABLE DAILY (
-	CID NUMBER NOT NULL, /* ê³ ê°ë²ˆí˜¸ */
-	PID NUMBER NOT NULL, /* ì œí’ˆë²ˆí˜¸ */
-	DT VARCHAR2(8) NOT NULL, /* ì¼ìž */
-	CNT NUMBER NOT NULL /* ìˆ˜ëŸ‰ */
+	CID NUMBER NOT NULL, /* °í°´¹øÈ£ */
+	PID NUMBER NOT NULL, /* Á¦Ç°¹øÈ£ */
+	DT VARCHAR2(8) NOT NULL, /* ÀÏÀÚ */
+	CNT NUMBER NOT NULL /* ¼ö·® */
 );
 
-COMMENT ON TABLE DAILY IS 'ì¼ì‹¤ì ';
+COMMENT ON TABLE DAILY IS 'ÀÏ½ÇÀû';
 
-COMMENT ON COLUMN DAILY.CID IS 'ê³ ê°ë²ˆí˜¸';
+COMMENT ON COLUMN DAILY.CID IS '°í°´¹øÈ£';
 
-COMMENT ON COLUMN DAILY.PID IS 'ì œí’ˆë²ˆí˜¸';
+COMMENT ON COLUMN DAILY.PID IS 'Á¦Ç°¹øÈ£';
 
-COMMENT ON COLUMN DAILY.DT IS 'ì¼ìž';
+COMMENT ON COLUMN DAILY.DT IS 'ÀÏÀÚ';
 
-COMMENT ON COLUMN DAILY.CNT IS 'ìˆ˜ëŸ‰';
+COMMENT ON COLUMN DAILY.CNT IS '¼ö·®';
 
 CREATE UNIQUE INDEX PK_DAILY
 	ON DAILY (
@@ -161,26 +161,26 @@ ALTER TABLE DAILY
 		);
 
 
-/* ë°°ì¹˜ */
+/* ¹èÄ¡ */
 CREATE TABLE BATCH (
-	BID NUMBER NOT NULL, /* ë°°ì¹˜ë²ˆí˜¸ */
-	BCD VARCHAR2(20) NOT NULL, /* ë°°ì¹˜ìž‘ì—… */
-	ST VARCHAR2(20) NOT NULL, /* ë°°ì¹˜ìƒíƒœ */
-	ST_DT DATE, /* ë°°ì¹˜ì‹œìž‘ì¼ìž */
-	ED_DT DATE /* ë°°ì¹˜ì¢…ë£Œì¼ìž */
+	BID NUMBER NOT NULL, /* ¹èÄ¡¹øÈ£ */
+	BCD VARCHAR2(20) NOT NULL, /* ¹èÄ¡ÀÛ¾÷ */
+	ST VARCHAR2(20) NOT NULL, /* ¹èÄ¡»óÅÂ */
+	ST_DT DATE, /* ¹èÄ¡½ÃÀÛÀÏÀÚ */
+	ED_DT DATE /* ¹èÄ¡Á¾·áÀÏÀÚ */
 );
 
-COMMENT ON TABLE BATCH IS 'ë°°ì¹˜';
+COMMENT ON TABLE BATCH IS '¹èÄ¡';
 
-COMMENT ON COLUMN BATCH.BID IS 'ë°°ì¹˜ë²ˆí˜¸';
+COMMENT ON COLUMN BATCH.BID IS '¹èÄ¡¹øÈ£';
 
-COMMENT ON COLUMN BATCH.BCD IS 'ë°°ì¹˜ìž‘ì—…';
+COMMENT ON COLUMN BATCH.BCD IS '¹èÄ¡ÀÛ¾÷';
 
-COMMENT ON COLUMN BATCH.ST IS 'ë°°ì¹˜ìƒíƒœ';
+COMMENT ON COLUMN BATCH.ST IS '¹èÄ¡»óÅÂ';
 
-COMMENT ON COLUMN BATCH.ST_DT IS 'ë°°ì¹˜ì‹œìž‘ì¼ìž';
+COMMENT ON COLUMN BATCH.ST_DT IS '¹èÄ¡½ÃÀÛÀÏÀÚ';
 
-COMMENT ON COLUMN BATCH.ED_DT IS 'ë°°ì¹˜ì¢…ë£Œì¼ìž';
+COMMENT ON COLUMN BATCH.ED_DT IS '¹èÄ¡Á¾·áÀÏÀÚ';
 
 CREATE UNIQUE INDEX PK_BATCH
 	ON BATCH (
@@ -194,16 +194,16 @@ ALTER TABLE BATCH
 			BID
 		);        
 
---ìžë£Œ        
+--ÀÚ·á        
 insert into customer values (1, 'brown');
 insert into customer values (2, 'sally');
 insert into customer values (3, 'cony');
 
 
-insert into product values (100, 'ì•¼ì¿ ë¥´íŠ¸');
-insert into product values (200, 'ìœŒ');
-insert into product values (300, 'ì¿ í¼ìŠ¤');
-insert into product values (400, 'ì•¼ì¿ ë¥´íŠ¸400');
+insert into product values (100, '¾ßÄí¸£Æ®');
+insert into product values (200, 'Àª');
+insert into product values (300, 'ÄíÆÛ½º');
+insert into product values (400, '¾ßÄí¸£Æ®400');
 
 insert into cycle values (1, 100, 2, 1);
 insert into cycle values (1, 400, 3, 1);
@@ -235,3 +235,67 @@ select cycle.cid, cycle.pid, cal.dt, cycle.cnt
      from dual
      connect by level <= last_day(to_date('201806', 'yyyymm')) - (to_date('201806', 'yyyymm')-1))) cal
 where cycle.day = cal.day;
+
+
+--===========================================
+select * from cycle;
+
+select * from cycle
+where cid=1
+and pid=100
+and day=2;
+
+select * from calendar;
+
+select * from calendar
+where ymd between '201811'||'01' and '201811'||'31' ;
+
+
+select ymd
+from calendar
+where ymd between '201811'||'01' and '201811'||'31' ;
+
+
+select * 
+from cycle
+where cycle.cid=1
+    and cycle.pid=100
+    and cycle.day=2;
+
+
+select ymd, to_char(to_date(ymd,'yyyyMMdd'),'d') d
+from calendar
+where ymd between '201811'||'01' and '201811'||'31' ;
+
+
+
+select *
+from
+    (select ymd, to_char(to_date(ymd,'yyyyMMdd'),'d') d
+     from calendar
+     where ymd between '201811'||'01' and '201811'||'31')a, cycle 
+where cycle.cid=1
+    and cycle.pid=100
+    and cycle.day=2
+    and a.d=cycle.day;
+
+
+select *
+from
+    (select ymd, to_char(to_date(ymd,'yyyyMMdd'),'d') d
+     from calendar
+     where ymd between '201811'||'01' and '201811'||'31')a, cycle 
+where cycle.cid=1
+    and cycle.pid=100
+    and cycle.day=2
+    and a.d=cycle.day;
+    
+    
+select cycle.cid, cycle.pid, a.ymd, cycle.cnt
+from
+    (select ymd, to_char(to_date(ymd,'yyyyMMdd'),'d') d
+     from calendar
+     where ymd between '201811'||'01' and '201811'||'31')a, cycle 
+where a.d=cycle.day;
+
+

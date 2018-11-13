@@ -9,9 +9,8 @@
 	<task:scheduler id="scheduler"/>
 	<task:scheduled-tasks scheduler="scheduler">
 		<task:scheduled ref="springTask" method="logging" cron="*/5 * * * * *"/>
-		<!-- 매달 마지막날 23시에 실행 -->
-		<task:scheduled ref="springTask" method="makeMonthlyCalendar" cron="0 0 23 L * *"/>
-		
-	</task:scheduled-tasks>
+		<!-- 매달 1일 3시에 실행 -->
+		<task:scheduled ref="springTask" method="makeMonthlyCalendar" cron="0 0 3 1 * *"/>
+			</task:scheduled-tasks>
 
 </beans>
